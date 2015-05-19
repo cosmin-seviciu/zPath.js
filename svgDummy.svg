@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<script type="text/javascript" src = "jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src = "jquery.zpath.js"></script>
-	<script type="text/javascript" src = "script.js"></script>
-</head>
-<body>
-
-
-<svg class = 'svgTest' version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="960px" height="560px" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
 <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="138.5" y1="119" x2="138.5" y2="355"/>
 <g>
@@ -115,7 +107,3 @@
 	c3.525,11.167,4.417,23.087,5.243,34.703c0.908,12.771-0.335,36.94,17.746,37.532C119.227,221.276,119.221,218.275,117.291,218.212z
 	"/>
 </svg>
-
-
-</body>
-</html>

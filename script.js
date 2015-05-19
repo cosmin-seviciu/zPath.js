@@ -1,5 +1,4 @@
-$( document ).ready(function() {
-    
-	$('.zaSVG').zAnimator();
 
+$( document ).ready(function() {
+    $('.svgTest').zPath();
 });
