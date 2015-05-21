@@ -12,11 +12,12 @@
 
     $.fn.zPath = function( options ) {
 
-        var job = 'none';
-        if(options == 'start'){
-            job = options;
-        }
-        options = {};
+        // var job = 'none';
+        // if(options == 'start'){
+        //     job = options;
+        // }
+        // options = {};
+        //$.fn.zPath.test(true);
 
         // SVG elemetns
 
@@ -39,53 +40,91 @@
         },options);
 
         z.init = function () {           
-            z.clearSVG(selector);
-            // console.log(selector);
+            clear.clearSVG(selector);
+            console.log(settings.speed);
         }
 
-        z.clearSVG = function(el){
-            el.children().each(function(){
-                // console.log($(this));
-                if($(this).is(g)){
-                    z.clearSVG($(this));
-                }else if($(this).is(path)){
-                    clear.path($(this));
-                }else if($(this).is(rect)){
-                    clear.rect($(this));
-                }else if($(this).is(circle)){
-                    clear.circle($(this));
-                }else if($(this).is(line)){
-//                    clear.path($(this));
-                    clear.line($(this));
-                }else if($(this).is(polygon)){
-                    clear.polygon($(this));
-                }
-            });
-
+        z.start = function(){
+        	console.log(true);
         }
+
+//         z.clearSVG = function(el){
+//             el.children().each(function(){
+//                 // console.log($(this));
+//                 if($(this).is(g)){
+//                     z.clearSVG($(this));
+//                 }else if($(this).is(path)){
+//                     clear.path($(this));
+//                 }else if($(this).is(rect)){
+//                     clear.rect($(this));
+//                 }else if($(this).is(circle)){
+//                     clear.circle($(this));
+//                 }else if($(this).is(line)){
+// //                    clear.path($(this));
+//                     clear.line($(this));
+//                 }else if($(this).is(polygon)){
+//                     clear.polygon($(this));
+//                 }
+//             });
+
+//         }
 
         var clear = {
+
+        	clearSVG:function(el){
+        		el.children().each(function(){
+                	// console.log($(this));
+	                if($(this).is(g)){
+	                    clear.clearSVG($(this));
+	                }else if($(this).is(path)){
+	                    clear.path($(this));
+	                }else if($(this).is(rect)){
+	                    clear.rect($(this));
+	                }else if($(this).is(circle)){
+	                    clear.circle($(this));
+	                }else if($(this).is(line)){	
+	                    clear.line($(this));
+	                }else if($(this).is(polygon)){
+	                    clear.polygon($(this));
+	                }
+	            });
+
+        	},
+
             path:function(el){
                 var pathLength = tools.getPathLength(el);
                 tools.dashClear(el,pathLength);
                 tools.clearFill(el);
             },
+
             rect:function(el){
                 tools.dashClear(el,tools.getRectLength(el));
             },
+
             circle:function(el){
                 tools.dashClear(el,tools.getCircleLength(el));
             },
+
             line:function(el){
                 tools.dashClear(el,tools.getLineLength(el));
             },
+
             polygon:function(el){
                 tools.dashClear(el,tools.getPolygonLength(el));
             }
+
         }
         
         var tools = {
-            
+
+
+        	draw:function(el){
+				el.animate({
+                    "stroke-dasharray" : "0px",
+                    "stroke-dashoffset": "0px"
+                },{duration:2000});
+
+        	},           
             
             /**
              *
@@ -230,7 +269,7 @@
             }
         }
 
-        return z.init();
+        return z;
 
     }
 

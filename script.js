@@ -1,4 +1,6 @@
 
 $( document ).ready(function() {
-    $('.svgTest').zPath();
+   var a =  $('.svgTest').zPath({speed:100});
+   a.init();
+
 });
