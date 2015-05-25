@@ -8,16 +8,17 @@
 
 (function($) {
 
-    var g = "g";
-    var path = "path";
-    var rect = "rect";
-    var circle = "circle";
-    var line = "line";
-    var polygon = "polygon";
 
-    
+  var g = "g";
+  var path = "path";
+  var rect = "rect";
+  var circle = "circle";
+  var line = "line";
+  var polygon = "polygon";
 
-    var selector = $(this.selector);
+  
+
+  // var selector = $(this.selector);
 
   $.fn.zPath = function(options) {
 
@@ -30,13 +31,39 @@
         clearSVG($this);
       }
 
+      if(opts.action == 'start'){
+        console.log("start?");
+        if(opts.draw == 'all'){
+          drawSVG($this,opts.speed);
+        }
+          
+        }
+    
+
       console.log(opts);
     });
   };
 
-var clearSVG = function(el){
+  var drawSVG = function(el,speed){
       el.children().each(function(){
-          // console.log($(this));
+          if($(this).is(g)){
+              drawSVG($(this),speed);
+          }else if($(this).is(path)){
+              draw.path($(this),speed);
+          }else if($(this).is(rect)){
+              draw.rect($(this),speed);
+          }else if($(this).is(circle)){
+              draw.circle($(this),speed);
+          }else if($(this).is(line)){
+              draw.line($(this),speed);
+          }else if($(this).is(polygon)){
+              draw.polygon($(this),speed);
+          }
+      });
+  }
+
+  var clearSVG = function(el){
+      el.children().each(function(){
           if($(this).is(g)){
               clearSVG($(this));
           }else if($(this).is(path)){
@@ -46,7 +73,6 @@ var clearSVG = function(el){
           }else if($(this).is(circle)){
               clear.circle($(this));
           }else if($(this).is(line)){
-//                    clear.path($(this));
               clear.line($(this));
           }else if($(this).is(polygon)){
               clear.polygon($(this));
@@ -55,7 +81,30 @@ var clearSVG = function(el){
 
   }
 
-  var clear = {
+    var draw = {
+      path:function(el,speed){
+        tools.dashDraw(el,speed);
+
+      },
+      rect:function(el,speed){
+        tools.dashDraw(el,speed);
+
+      },
+      circle:function(el,speed){
+        tools.dashDraw(el,speed);
+
+      },
+      line:function(el,speed){
+        tools.dashDraw(el,speed);
+
+      },
+      polygon:function(el,speed){
+        tools.dashDraw(el,speed);
+
+      }
+    };
+
+    var clear = {
       path:function(el){
           var pathLength = tools.getPathLength(el);
           tools.dashClear(el,pathLength);
@@ -73,9 +122,9 @@ var clearSVG = function(el){
       polygon:function(el){
           tools.dashClear(el,tools.getPolygonLength(el));
       }
-  }
+    };
   
-  var tools = {
+    var tools = {
       
       
       /**
@@ -206,6 +255,24 @@ var clearSVG = function(el){
               "stroke-dashoffset": v+"px"
           });
       },
+
+      /**
+       *
+       * Used to clear the path
+       *
+       * @param el is the path element
+       * @param v is the value of the dash
+       */
+      dashDraw:function(el,speed){
+          el.animate({
+                    // "stroke-dasharray":0,
+                    "stroke-dashoffset":0
+                  },
+                  {
+                    queue : false,
+                    duration : speed
+                  });
+      },
       
       /**
        *
@@ -219,17 +286,15 @@ var clearSVG = function(el){
           var pathLength = pathCoords.getTotalLength();
           return pathLength;
       }
-  }
+    }
 
   //
   // plugin defaults
   //
-  var defaults = {
-    action:'clear',
-    speed:3000,
-    draw:'all'
-  };
-//
-// end of closure
-//
+    var defaults = {
+      action:'clear',
+      speed:3000,
+      draw:'all'
+    };
+
 })(jQuery);
