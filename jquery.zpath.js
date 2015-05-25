@@ -261,7 +261,6 @@
        * Used to clear the path
        *
        * @param el is the path element
-       * @param v is the value of the dash
        */
       dashDraw:function(el,speed){
           el.animate({
@@ -269,7 +268,7 @@
                     "stroke-dashoffset":0
                   },
                   {
-                    queue : false,
+                    // queue : false,
                     duration : speed
                   });
       },
