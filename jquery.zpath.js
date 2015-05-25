@@ -76,6 +76,8 @@
               clear.line($(this));
           }else if($(this).is(polygon)){
               clear.polygon($(this));
+              // console.log($(this));
+
           }
       });
 
@@ -84,22 +86,27 @@
     var draw = {
       path:function(el,speed){
         tools.dashDraw(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       rect:function(el,speed){
         tools.dashDraw(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       circle:function(el,speed){
         tools.dashDraw(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       line:function(el,speed){
         tools.dashDraw(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       polygon:function(el,speed){
         tools.dashDraw(el,speed);
+        // tools.drawFill(el,speed);
 
       }
     };
@@ -112,15 +119,20 @@
       },
       rect:function(el){
           tools.dashClear(el,tools.getRectLength(el));
+          tools.clearFill(el);
       },
       circle:function(el){
           tools.dashClear(el,tools.getCircleLength(el));
+          tools.clearFill(el);
       },
       line:function(el){
           tools.dashClear(el,tools.getLineLength(el));
+          tools.clearFill(el);
       },
       polygon:function(el){
+        // console.log(el);
           tools.dashClear(el,tools.getPolygonLength(el));
+          tools.clearFill(el);
       }
     };
   
@@ -173,7 +185,7 @@
                   
               }else{
                   
-                  if(coords[0] != "" && coords[1] != ""){             
+                  if(coords[0] != "" && coords[1] != "" && isNaN(coords)){             
                   
                       if(/(\r\n|\n|\r)/gm.test(coords[0])){
                           coords[0] = coords[0].replace(/(\r\n|\n|\r)/gm,"");
@@ -200,6 +212,7 @@
               }
               
           }
+          console.log(lineLength);
           return lineLength;
           
       },
@@ -238,8 +251,18 @@
       
       clearFill:function(el){
           el.css({
-              "fill" : "none"
+              // "fill" : "none"
+              "fill-opacity":"0"
           });
+      },
+
+      drawFill:function(el,speed){
+          el.animate({
+                    "fill-opacity":1
+                  },
+                  {
+                    duration : speed
+                  });
       },
       
       /**
@@ -268,7 +291,7 @@
                     "stroke-dashoffset":0
                   },
                   {
-                    // queue : false,
+                    queue : false,
                     duration : speed
                   });
       },
