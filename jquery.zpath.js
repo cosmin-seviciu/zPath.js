@@ -20,29 +20,27 @@
 
   // var selector = $(this.selector);
 
-  $.fn.zPath = function(options) {
+    $.fn.zPath = function(options) {
 
-    var opts = $.extend({}, defaults, options);
-    // iterate and reformat each matched element
-    return this.each(function() {
-      $this = $(this);
+        var opts = $.extend({}, defaults, options);
+        // iterate and reformat each matched element
+        return this.each(function() {
+            $this = $(this);
 
-      if(opts.action == 'clear'){
-        clearSVG($this);
-      }
+            if(opts.action == 'clear'){
+                clearSVG($this);
+            }
 
-      if(opts.action == 'start'){
-        console.log("start?");
-        if(opts.draw == 'all'){
-          drawSVG($this,opts.speed);
-        }
-          
-        }
-    
+            if(opts.action == 'start'){
+                if(opts.draw == 'all'){
+                    drawSVG($this,opts.speed);
+                } 
+            }
 
-      console.log(opts);
-    });
-  };
+
+//            console.log(opts);
+        });
+    };
 
   var drawSVG = function(el,speed){
       el.children().each(function(){
@@ -212,7 +210,7 @@
               }
               
           }
-          console.log(lineLength);
+          console.log(tools.randomClass());
           return lineLength;
           
       },
@@ -307,7 +305,18 @@
           var pathCoords = el.get(0);
           var pathLength = pathCoords.getTotalLength();
           return pathLength;
+      },
+        
+      /**
+       *
+       * Used to generate random class names
+       *
+       * @return a random class string
+       */ 
+      randomClass:function(){
+        return 'z-' + Math.random().toString(36).substr(2, 6);
       }
+        
     }
 
   //
