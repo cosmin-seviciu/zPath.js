@@ -84,27 +84,27 @@
     var draw = {
       path:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       rect:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       circle:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       line:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       polygon:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       }
     };
