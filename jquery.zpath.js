@@ -1,13 +1,13 @@
 /**
  * zPath 0.0.1
- * https://github.com/
+ * https://github.com/Zet-Tools/zPath.js
  * MIT licensed
  *
  * A project by Seviciu Cosmin / ZetCoby
  */
 
 (function($) {
-
+  var id = 1;
   var g = "g";
   var path = "path";
   var rect = "rect";
@@ -15,41 +15,43 @@
   var line = "line";
   var polygon = "polygon";
   var elements = [];
-
+  var defaults = {
+      action:'start',
+      speed:3000,
+      draw:'all',
+      delay:20,
+      id:1
+    };
   
 
   // var selector = $(this.selector);
 
     $.fn.zPath = function(options) {
-
-        var opts = $.extend(true,{}, defaults, options);
-      
-        // iterate and reformat each matched element
-      
-        return this.each(function() {
-            console.log($(this));
-            var $this = $(this);
+      var that = this;
+      +(function() {
+        var opts = $.extend({}, defaults, options);
+        return $(that).each(function() {
             
-            /*if(opts.action == 'clear'){
-                
-            }*/
-
+            var $this = $(this);
+            opts.id = id;
             if(opts.action == 'start'){
+                console.log(opts);
                 clearSVG($this);
                 drawSVG($this,opts);
+                id++;
             }
-
-
-//            console.log(opts);
         });
+      }());
     };
 
   var drawSVG = function(el,opts){
       var speed = opts.speed;
       var mode = opts.draw;
+      var id = opts.id;
       var delay = opts.delay;
       var delayIncrement = opts.delay;
       if(mode == 'all'){
+        console.log(el.attr('class'));
         el.children().each(function(){
             if($(this).is(g)){
                 drawSVG($(this),opts);
@@ -70,29 +72,32 @@
           delayIncrement = speed;
         }
         for(i = 0; i <= elements.length-1;i++){   
-          setTimeout(
-          (function(element) {
-              return function() {
-                  if($('.'+element).is(path)){
-                    draw.path($('.'+element),speed);
-                  }else if($('.'+element).is(rect)){
-                    draw.rect($('.'+element),speed);
-                  }else if($('.'+element).is(circle)){
-                    draw.circle($('.'+element),speed);
-                  }else if($('.'+element).is(line)){
-                    draw.line($('.'+element),speed);
-                  }else if($('.'+element).is(polygon)){
-                    draw.polygon($('.'+element),speed);
-                  }
-              }
-          })(elements[i]), delay);
-              
-          delay += delayIncrement;
+          if(tools.idCompare(elements[i],id)){
+            setTimeout(
+            (function(element) {
+                return function() {
+                    if($('.'+element).is(path)){
+                      draw.path($('.'+element),speed);
+                    }else if($('.'+element).is(rect)){
+                      draw.rect($('.'+element),speed);
+                    }else if($('.'+element).is(circle)){
+                      draw.circle($('.'+element),speed);
+                    }else if($('.'+element).is(line)){
+                      draw.line($('.'+element),speed);
+                    }else if($('.'+element).is(polygon)){
+                      draw.polygon($('.'+element),speed);
+                    }
+                }
+            })(elements[i]), delay);
+
+            delay += delayIncrement;
+            }
+          
           
         }
 
       }else if(mode == 'terminus' || mode == 'terminusDelayed'){
-        
+        console.log(mode);
         for(var i = 0, j = elements.length-1; i <= elements.length/2 && j >= elements.length/2 ;i++, j--){
             setTimeout(
               (function(element1,element2) {
@@ -139,9 +144,9 @@
           modeArray = mode.split('by');
           n1 = Number(modeArray[0]);
           n2 = modeArray[1];
-          //console.log(n1);
           for(i = 0; i <= elements.length-1;i+=n1){
-            for(var j = 0; j < n1; j++){
+            if(tools.idCompare(elements[i],id)){
+              for(var j = 0; j < n1; j++){
               elementsArray.push(elements[i+j])  
             }
             
@@ -171,6 +176,8 @@
               }else{
                 delay += speed;  
               }
+            }
+            
               
           }          
         }
@@ -181,8 +188,8 @@
   var clearSVG = function(el){
       el.children().each(function(i){
           var cls = tools.randomClass();
-          $(this).attr('class',cls);     
-          elements.push(cls);
+          $(this).attr('class',cls+"_"+id);     
+          elements.push(cls+"_"+id);
           if($(this).is(g)){
               clearSVG($(this));
           }else if($(this).is(path)){
@@ -434,6 +441,15 @@
        */ 
       randomClass:function(){
         return 'z-' + Math.random().toString(36).substr(2, 6);
+      },
+      
+      idCompare:function(cls,id){
+        var clsArray = [];
+        clsArray = cls.split('_');
+        if(Number(clsArray[1]) == id){
+          return true;
+        }
+        return false;
       }
         
     }
@@ -441,11 +457,18 @@
   //
   // plugin defaults
   //
-    var defaults = {
-      action:'start',
-      speed:3000,
-      draw:'all',
-      delay:20
-    };
+    
 
 })(jQuery);
+
+
+
+$('.maze').zPath({
+                draw:'terminusDelayed',
+                delay:50,
+                speed:500});
+
+$('.bird').zPath({
+                draw:'5by5Delayed',
+                delay:30,
+                speed:1000});
