@@ -21,6 +21,7 @@
   // var selector = $(this.selector);
 
     $.fn.zPath = function(options) {
+<<<<<<< HEAD
 
         var opts = $.extend(true,{}, defaults, options);
       
@@ -90,6 +91,28 @@
           delay += delayIncrement;
           
         }
+=======
+
+        var opts = $.extend({}, defaults, options);
+        // iterate and reformat each matched element
+        return this.each(function() {
+            $this = $(this);
+
+            if(opts.action == 'clear'){
+                clearSVG($this);
+            }
+
+            if(opts.action == 'start'){
+                if(opts.draw == 'all'){
+                    drawSVG($this,opts.speed);
+                } 
+            }
+
+
+//            console.log(opts);
+        });
+    };
+>>>>>>> origin/master
 
       }else if(mode == 'terminus' || mode == 'terminusDelayed'){
         
@@ -203,27 +226,27 @@
     var draw = {
       path:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       rect:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       circle:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       line:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       },
       polygon:function(el,speed){
         tools.dashDraw(el,speed);
-        tools.drawFill(el,speed);
+        // tools.drawFill(el,speed);
 
       }
     };
@@ -449,5 +472,8 @@
     };
 
 })(jQuery);
+<<<<<<< HEAD
 
 });
+=======
+>>>>>>> origin/master
