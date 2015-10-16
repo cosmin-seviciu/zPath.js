@@ -8,62 +8,181 @@
 
 (function($) {
 
-
   var g = "g";
   var path = "path";
   var rect = "rect";
   var circle = "circle";
   var line = "line";
   var polygon = "polygon";
+  var elements = [];
 
   
 
   // var selector = $(this.selector);
 
-  $.fn.zPath = function(options) {
+    $.fn.zPath = function(options) {
 
-    var opts = $.extend({}, defaults, options);
-    // iterate and reformat each matched element
-    return this.each(function() {
-      $this = $(this);
+        var opts = $.extend(true,{}, defaults, options);
+      
+        // iterate and reformat each matched element
+      
+        return this.each(function() {
+            console.log($(this));
+            var $this = $(this);
+            
+            /*if(opts.action == 'clear'){
+                
+            }*/
 
-      if(opts.action == 'clear'){
-        clearSVG($this);
-      }
+            if(opts.action == 'start'){
+                clearSVG($this);
+                drawSVG($this,opts);
+            }
 
-      if(opts.action == 'start'){
-        console.log("start?");
-        if(opts.draw == 'all'){
-          drawSVG($this,opts.speed);
+
+//            console.log(opts);
+        });
+    };
+
+  var drawSVG = function(el,opts){
+      var speed = opts.speed;
+      var mode = opts.draw;
+      var delay = opts.delay;
+      var delayIncrement = opts.delay;
+      if(mode == 'all'){
+        el.children().each(function(){
+            if($(this).is(g)){
+                drawSVG($(this),opts);
+            }else if($(this).is(path)){
+                draw.path($(this),speed);
+            }else if($(this).is(rect)){
+                draw.rect($(this),speed);
+            }else if($(this).is(circle)){
+                draw.circle($(this),speed);
+            }else if($(this).is(line)){
+                draw.line($(this),speed);
+            }else if($(this).is(polygon)){
+                draw.polygon($(this),speed);
+            }
+        });  
+      }else if(mode == "delayed" || mode == '1by1'){
+        if(mode == '1by1'){
+          delayIncrement = speed;
         }
+        for(i = 0; i <= elements.length-1;i++){   
+          setTimeout(
+          (function(element) {
+              return function() {
+                  if($('.'+element).is(path)){
+                    draw.path($('.'+element),speed);
+                  }else if($('.'+element).is(rect)){
+                    draw.rect($('.'+element),speed);
+                  }else if($('.'+element).is(circle)){
+                    draw.circle($('.'+element),speed);
+                  }else if($('.'+element).is(line)){
+                    draw.line($('.'+element),speed);
+                  }else if($('.'+element).is(polygon)){
+                    draw.polygon($('.'+element),speed);
+                  }
+              }
+          })(elements[i]), delay);
+              
+          delay += delayIncrement;
           
         }
-    
 
-      console.log(opts);
-    });
-  };
-
-  var drawSVG = function(el,speed){
-      el.children().each(function(){
-          if($(this).is(g)){
-              drawSVG($(this),speed);
-          }else if($(this).is(path)){
-              draw.path($(this),speed);
-          }else if($(this).is(rect)){
-              draw.rect($(this),speed);
-          }else if($(this).is(circle)){
-              draw.circle($(this),speed);
-          }else if($(this).is(line)){
-              draw.line($(this),speed);
-          }else if($(this).is(polygon)){
-              draw.polygon($(this),speed);
-          }
-      });
+      }else if(mode == 'terminus' || mode == 'terminusDelayed'){
+        
+        for(var i = 0, j = elements.length-1; i <= elements.length/2 && j >= elements.length/2 ;i++, j--){
+            setTimeout(
+              (function(element1,element2) {
+                  return function() {
+                      if($('.'+element1).is(path)){
+                        draw.path($('.'+element1),speed);
+                      }else if($('.'+element1).is(rect)){
+                        draw.rect($('.'+element1),speed);
+                      }else if($('.'+element1).is(circle)){
+                        draw.circle($('.'+element1),speed);
+                      }else if($('.'+element1).is(line)){
+                        draw.line($('.'+element1),speed);
+                      }else if($('.'+element1).is(polygon)){
+                        draw.polygon($('.'+element1),speed);
+                      }
+                    
+                      if($('.'+element2).is(path)){
+                        draw.path($('.'+element2),speed);
+                      }else if($('.'+element2).is(rect)){
+                        draw.rect($('.'+element2),speed);
+                      }else if($('.'+element2).is(circle)){
+                        draw.circle($('.'+element2),speed);
+                      }else if($('.'+element2).is(line)){
+                        draw.line($('.'+element2),speed);
+                      }else if($('.'+element2).is(polygon)){
+                        draw.polygon($('.'+element2),speed);
+                      }
+                  }
+              })(elements[i],elements[j]), delay);
+              
+              if(mode != 'terminusDelayed'){
+                delay += speed;                
+              }else{
+                delay += delayIncrement;
+              }
+          } 
+        
+      }else{
+        var modeArray = [];
+        var elementsArray = [];
+        var n1;
+        var n2;
+        if (mode.indexOf("by") >= 0){
+          modeArray = mode.split('by');
+          n1 = Number(modeArray[0]);
+          n2 = modeArray[1];
+          //console.log(n1);
+          for(i = 0; i <= elements.length-1;i+=n1){
+            for(var j = 0; j < n1; j++){
+              elementsArray.push(elements[i+j])  
+            }
+            
+            setTimeout(
+              (function(element) {
+                  return function() {
+                    for(var j = 0; j < n1; j++){
+                      if($('.'+element[j]).is(path)){
+                        draw.path($('.'+element[j]),speed);
+                      }else if($('.'+element[j]).is(rect)){
+                        draw.rect($('.'+element[j]),speed);
+                      }else if($('.'+element[j]).is(circle)){
+                        draw.circle($('.'+element[j]),speed);
+                      }else if($('.'+element[j]).is(line)){
+                        draw.line($('.'+element[j]),speed);
+                      }else if($('.'+element[j]).is(polygon)){
+                        draw.polygon($('.'+element[j]),speed);
+                      }
+                    }
+                    
+                  }
+              })(elementsArray), delay);
+              elementsArray = [];
+            
+              if (n2.indexOf("Delayed") >= 0){
+                delay += delayIncrement;
+              }else{
+                delay += speed;  
+              }
+              
+          }          
+        }
+      }
+      
   }
 
   var clearSVG = function(el){
-      el.children().each(function(){
+      el.children().each(function(i){
+          var cls = tools.randomClass();
+          $(this).attr('class',cls);     
+          elements.push(cls);
           if($(this).is(g)){
               clearSVG($(this));
           }else if($(this).is(path)){
@@ -76,13 +195,11 @@
               clear.line($(this));
           }else if($(this).is(polygon)){
               clear.polygon($(this));
-              // console.log($(this));
-
           }
       });
-
+      
   }
-
+  
     var draw = {
       path:function(el,speed){
         tools.dashDraw(el,speed);
@@ -212,7 +329,7 @@
               }
               
           }
-          console.log(lineLength);
+          console.log(tools.randomClass());
           return lineLength;
           
       },
@@ -307,16 +424,30 @@
           var pathCoords = el.get(0);
           var pathLength = pathCoords.getTotalLength();
           return pathLength;
+      },
+        
+      /**
+       *
+       * Used to generate random class names
+       *
+       * @return a random class string
+       */ 
+      randomClass:function(){
+        return 'z-' + Math.random().toString(36).substr(2, 6);
       }
+        
     }
 
   //
   // plugin defaults
   //
     var defaults = {
-      action:'clear',
+      action:'start',
       speed:3000,
-      draw:'all'
+      draw:'all',
+      delay:20
     };
 
 })(jQuery);
+
+});
