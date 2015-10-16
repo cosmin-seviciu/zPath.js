@@ -461,14 +461,3 @@
 
 })(jQuery);
 
-
-
-$('.maze').zPath({
-                draw:'terminusDelayed',
-                delay:50,
-                speed:500});
-
-$('.bird').zPath({
-                draw:'5by5Delayed',
-                delay:30,
-                speed:1000});
