@@ -1,6 +1,6 @@
 # zPath.js
 
-A simple and easy to use plugin to draw any simple svg that uses only paths ot any other elements but whitout fills.
+A simple and easy to use plugin to draw any simple svg that uses only paths or any other elements but whitout fills.
 
 ## Usage
 You will need to include:
