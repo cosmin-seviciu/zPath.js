@@ -30,11 +30,11 @@ $(document).ready(function() {
 ## Options
 
 - `draw`: (default `delayed`) the drawing style to use, other styles are `all`,`terminus`,`terminusDelayed`,`1by1`,`2by2`,`3by3`, ... , `10by10`, `2by2Delayed`,`3by3Delayed`, ... ,`10by10Delayed`
-		`all` : will draw all the paths at once
-		`terminus` : draws 2 paths at once, one is from the begining and the other one strats reversed from the end
-		`terminusDelayed` : the same as `terminus` but it wont wait until the previous path has finished animating, instead it will start after the `delay` time has passed
-		`1by1`,`2by2` . . . `10by10` : lets say you will use `4by4` this will draw 4 paths at the same time
-		`2by2Delayed`,3by3Delayed` ... : this will draw the specific number of paths at the same time, but again it wont wait fot the other paths to finish, instead it will start after the `delay` has passed
+  *`all` : will draw all the paths at once
+  *`terminus` : draws 2 paths at once, one is from the begining and the other one strats reversed from the end
+  *`terminusDelayed` : the same as `terminus` but it wont wait until the previous path has finished animating, instead it will start after the `delay` time has passed
+  *`1by1`,`2by2` . . . `10by10` : lets say you will use `4by4` this will draw 4 paths at the same time
+  *`2by2Delayed`,3by3Delayed` ... : this will draw the specific number of paths at the same time, but again it wont wait fot the other paths to finish, instead it will start after the `delay` has passed
 		
 - `speed`: (default `1000`) the time that it will take for each path to draw
 
