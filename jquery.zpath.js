@@ -60,7 +60,6 @@
     if (opts.shuffle == true)
       tools.arrayShuffle(elements);
     if (mode == 'all') {
-      console.log(el.attr('class'));
       el.children().each(function() {
 
         if ($(this).is(g)) {
@@ -106,7 +105,6 @@
       }
 
     } else if (mode == 'terminus' || mode == 'terminusDelayed') {
-      console.log(mode);
       for (var i = 0, j = elements.length - 1; i <= elements.length / 2 && j >= elements.length / 2; i++, j--) {
         setTimeout(
           (function(element1, element2) {
@@ -262,7 +260,6 @@
       tools.clearFill(el);
     },
     polygon: function(el) {
-      // console.log(el);
       tools.dashClear(el, tools.getPolygonLength(el));
       tools.clearFill(el);
     }
@@ -346,7 +343,6 @@
         }
 
       }
-      console.log(tools.randomClass());
       return lineLength;
 
     },
