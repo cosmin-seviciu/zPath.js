@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 ## Options
 
-- `draw`: (default `delayed`) the drawing style to use, other styles are `all`,`terminus',`terminusDelayed`,`1by1`,`2by2`,`3by3`, ... , `10by10`, `2by2Delayed`,`3by3Delayed`, ... ,`10by10Delayed`
+- `draw`: (default `delayed`) the drawing style to use, other styles are `all`,`terminus`,`terminusDelayed`,`1by1`,`2by2`,`3by3`, ... , `10by10`, `2by2Delayed`,`3by3Delayed`, ... ,`10by10Delayed`
 		`all` : will draw all the paths at once
 		`terminus` : draws 2 paths at once, one is from the begining and the other one strats reversed from the end
 		`terminusDelayed` : the same as `terminus` but it wont wait until the previous path has finished animating, instead it will start after the `delay` time has passed
