@@ -498,10 +498,3 @@
   }
 
 })(jQuery);
-
-$('.maze').zPath({
-  draw: 'terminusDelayed',
-  delay: 30,
-  //      shuffle:true,
-  speed: 3000
-});
