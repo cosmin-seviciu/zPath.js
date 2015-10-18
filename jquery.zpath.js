@@ -1,5 +1,5 @@
 /**
- * zPath 0.1.3
+ * zPath 1.0
  * https://github.com/Zet-Tools/zPath.js
  * 
  *********************************************
