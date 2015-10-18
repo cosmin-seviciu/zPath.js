@@ -4,7 +4,7 @@ A simple and easy to use plugin to draw any simple svg that uses only paths or a
 
 ## Usage
 You will need to include:
- - [jQuery library](http://jquery.com/).http://codepen.io/ZetCoby/pen/WQXEXR
+ - [jQuery library](http://jquery.com/).
 
 ## DEMO
 Demo on Codepen
