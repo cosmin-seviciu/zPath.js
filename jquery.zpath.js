@@ -111,41 +111,42 @@
     } else if (mode == 'terminus' || mode == 'terminusDelayed') {
       for (var i = 0, j = elements.length - 1; i <= elements.length / 2 && j >= elements.length / 2; i++, j--) {
         if (tools.idCompare(elements[i], id)) {
-          setTimeout(
-            (function(element1, element2) {
-              return function() {
-                if ($('.' + element1).is(path)) {
-                  draw.path($('.' + element1), speed);
-                } else if ($('.' + element1).is(rect)) {
-                  draw.rect($('.' + element1), speed);
-                } else if ($('.' + element1).is(circle)) {
-                  draw.circle($('.' + element1), speed);
-                } else if ($('.' + element1).is(line)) {
-                  draw.line($('.' + element1), speed);
-                } else if ($('.' + element1).is(polygon)) {
-                  draw.polygon($('.' + element1), speed);
-                }
+	          setTimeout(
+	            (function(element1, element2) {
+	              return function() {
+	                if ($('.' + element1).is(path)) {
+	                  draw.path($('.' + element1), speed);
+	                } else if ($('.' + element1).is(rect)) {
+	                  draw.rect($('.' + element1), speed);
+	                } else if ($('.' + element1).is(circle)) {
+	                  draw.circle($('.' + element1), speed);
+	                } else if ($('.' + element1).is(line)) {
+	                  draw.line($('.' + element1), speed);
+	                } else if ($('.' + element1).is(polygon)) {
+	                  draw.polygon($('.' + element1), speed);
+	                }
 
-                if ($('.' + element2).is(path)) {
-                  draw.path($('.' + element2), speed);
-                } else if ($('.' + element2).is(rect)) {
-                  draw.rect($('.' + element2), speed);
-                } else if ($('.' + element2).is(circle)) {
-                  draw.circle($('.' + element2), speed);
-                } else if ($('.' + element2).is(line)) {
-                  draw.line($('.' + element2), speed);
-                } else if ($('.' + element2).is(polygon)) {
-                  draw.polygon($('.' + element2), speed);
-                }
-              }
-            })(elements[i], elements[j]), delay);
-        }
+	                if ($('.' + element2).is(path)) {
+	                  draw.path($('.' + element2), speed);
+	                } else if ($('.' + element2).is(rect)) {
+	                  draw.rect($('.' + element2), speed);
+	                } else if ($('.' + element2).is(circle)) {
+	                  draw.circle($('.' + element2), speed);
+	                } else if ($('.' + element2).is(line)) {
+	                  draw.line($('.' + element2), speed);
+	                } else if ($('.' + element2).is(polygon)) {
+	                  draw.polygon($('.' + element2), speed);
+	                }
+	              }
+	            })(elements[i], elements[j]), delay);
+	        
 
-        if (mode != 'terminusDelayed') {
-          delay += speed;
-        } else {
-          delay += delayIncrement;
-        }
+	        if (mode != 'terminusDelayed') {
+	          delay += speed;
+	        } else {
+	          delay += delayIncrement;
+	        }
+    	}
       }
 
     } else {
@@ -227,6 +228,7 @@
         tools.destroy($('.' + elements[i]));
       }
     }
+    elements = [];
     /*el.children().each(function() {
       if ($(this).is(g)) {
         resetSVG($(this));
