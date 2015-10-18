@@ -42,10 +42,15 @@
 
         var $this = $(this);
         opts.id = id;
+
         if (opts.action == 'start') {
           clearSVG($this, opts);
+          $this.attr('data-id', id);
+          console.log(elements);
           drawSVG($this, opts);
           id++;
+        } else if (opts.action == 'destroy') {
+          resetSVG($this, $this.attr('data-id'));
         }
       });
     }());
@@ -106,34 +111,36 @@
 
     } else if (mode == 'terminus' || mode == 'terminusDelayed') {
       for (var i = 0, j = elements.length - 1; i <= elements.length / 2 && j >= elements.length / 2; i++, j--) {
-        setTimeout(
-          (function(element1, element2) {
-            return function() {
-              if ($('.' + element1).is(path)) {
-                draw.path($('.' + element1), speed);
-              } else if ($('.' + element1).is(rect)) {
-                draw.rect($('.' + element1), speed);
-              } else if ($('.' + element1).is(circle)) {
-                draw.circle($('.' + element1), speed);
-              } else if ($('.' + element1).is(line)) {
-                draw.line($('.' + element1), speed);
-              } else if ($('.' + element1).is(polygon)) {
-                draw.polygon($('.' + element1), speed);
-              }
+        if (tools.idCompare(elements[i], id)) {
+          setTimeout(
+            (function(element1, element2) {
+              return function() {
+                if ($('.' + element1).is(path)) {
+                  draw.path($('.' + element1), speed);
+                } else if ($('.' + element1).is(rect)) {
+                  draw.rect($('.' + element1), speed);
+                } else if ($('.' + element1).is(circle)) {
+                  draw.circle($('.' + element1), speed);
+                } else if ($('.' + element1).is(line)) {
+                  draw.line($('.' + element1), speed);
+                } else if ($('.' + element1).is(polygon)) {
+                  draw.polygon($('.' + element1), speed);
+                }
 
-              if ($('.' + element2).is(path)) {
-                draw.path($('.' + element2), speed);
-              } else if ($('.' + element2).is(rect)) {
-                draw.rect($('.' + element2), speed);
-              } else if ($('.' + element2).is(circle)) {
-                draw.circle($('.' + element2), speed);
-              } else if ($('.' + element2).is(line)) {
-                draw.line($('.' + element2), speed);
-              } else if ($('.' + element2).is(polygon)) {
-                draw.polygon($('.' + element2), speed);
+                if ($('.' + element2).is(path)) {
+                  draw.path($('.' + element2), speed);
+                } else if ($('.' + element2).is(rect)) {
+                  draw.rect($('.' + element2), speed);
+                } else if ($('.' + element2).is(circle)) {
+                  draw.circle($('.' + element2), speed);
+                } else if ($('.' + element2).is(line)) {
+                  draw.line($('.' + element2), speed);
+                } else if ($('.' + element2).is(polygon)) {
+                  draw.polygon($('.' + element2), speed);
+                }
               }
-            }
-          })(elements[i], elements[j]), delay);
+            })(elements[i], elements[j]), delay);
+        }
 
         if (mode != 'terminusDelayed') {
           delay += speed;
@@ -213,30 +220,47 @@
 
   }
 
+  var resetSVG = function(el, id) {
+    var tokens = [];
+    for (i = 0; i <= elements.length - 1; i++) {
+      tokens = elements[i].split('_');
+      if (id == Number(tokens[tokens.length - 1])) {
+        tools.destroy($('.' + elements[i]));
+      }
+    }
+    /*el.children().each(function() {
+      if ($(this).is(g)) {
+        resetSVG($(this));
+      } else{
+        tools.destroy($(this));
+      }
+    });*/
+  }
+
   var draw = {
     path: function(el, speed) {
       tools.dashDraw(el, speed);
-      tools.drawFill(el, speed);
+      //tools.drawFill(el, speed);
 
     },
     rect: function(el, speed) {
       tools.dashDraw(el, speed);
-      tools.drawFill(el, speed);
+      //tools.drawFill(el, speed);
 
     },
     circle: function(el, speed) {
       tools.dashDraw(el, speed);
-      tools.drawFill(el, speed);
+      //tools.drawFill(el, speed);
 
     },
     line: function(el, speed) {
       tools.dashDraw(el, speed);
-      tools.drawFill(el, speed);
+      //tools.drawFill(el, speed);
 
     },
     polygon: function(el, speed) {
       tools.dashDraw(el, speed);
-      tools.drawFill(el, speed);
+      //tools.drawFill(el, speed);
 
     }
   };
@@ -245,23 +269,23 @@
     path: function(el) {
       var pathLength = tools.getPathLength(el);
       tools.dashClear(el, pathLength);
-      tools.clearFill(el);
+      //tools.clearFill(el);
     },
     rect: function(el) {
       tools.dashClear(el, tools.getRectLength(el));
-      tools.clearFill(el);
+      //tools.clearFill(el);
     },
     circle: function(el) {
       tools.dashClear(el, tools.getCircleLength(el));
-      tools.clearFill(el);
+      //tools.clearFill(el);
     },
     line: function(el) {
       tools.dashClear(el, tools.getLineLength(el));
-      tools.clearFill(el);
+      //tools.clearFill(el);
     },
     polygon: function(el) {
       tools.dashClear(el, tools.getPolygonLength(el));
-      tools.clearFill(el);
+      //tools.clearFill(el);
     }
   };
 
@@ -408,6 +432,12 @@
       });
     },
 
+    destroy: function(el) {
+      el.stop().css({
+        "stroke-dashoffset": "0px"
+      });
+    },
+
     /**
      *
      * Used to clear the path
@@ -467,5 +497,11 @@
 
   }
 
-
 })(jQuery);
+
+$('.maze').zPath({
+  draw: 'terminusDelayed',
+  delay: 30,
+  //      shuffle:true,
+  speed: 3000
+});
