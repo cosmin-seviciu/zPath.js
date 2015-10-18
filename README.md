@@ -1,6 +1,6 @@
 # zPath.js
 
-A simple and easy to use plugin to draw any simple svg that uses only paths or any other elements but whitout fills.
+A simple and easy to use plugin to draw any simple svg that uses only paths or any other elements but without fills.
 
 ## Usage
 You will need to include:
@@ -15,7 +15,7 @@ $(document).ready(function() {
 });
 ```
 
-A more complex initialization with all options set could look like this:
+A more complex initialization with all options set included could look like this:
 ```javascript
 $(document).ready(function() {
 	$('.demo').zPath({
@@ -33,8 +33,8 @@ $(document).ready(function() {
   - `all` : will draw all the paths at once
   - `terminus` : draws 2 paths at once, one is from the begining and the other one strats reversed from the end
   - `terminusDelayed` : the same as `terminus` but it wont wait until the previous path has finished animating, instead it will start after the `delay` time has passed
-  - `1by1`,`2by2` . . . `10by10` : lets say you will use `4by4` this will draw 4 paths at the same time
-  - `2by2Delayed`,`3by3Delayed` ... : this will draw the specific number of paths at the same time, but again it wont wait fot the other paths to finish, instead it will start after the `delay` has passed
+  - `1by1`,`2by2` . . . `10by10` : let's say you will use `4by4` this will draw 4 paths at the same time
+  - `2by2Delayed`,`3by3Delayed` ... : this will draw the specific number of paths at the same time, but again it won't wait fot the other paths to finish, instead it will start after the `delay` has passed
 		
 - `speed`: (default `1000`) the time that it will take for each path to draw
 
