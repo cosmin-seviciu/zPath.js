@@ -46,7 +46,6 @@
         if (opts.action == 'start') {
           clearSVG($this, opts);
           $this.attr('data-id', id);
-          console.log(elements);
           drawSVG($this, opts);
           id++;
         } else if (opts.action == 'destroy') {
