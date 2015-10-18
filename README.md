@@ -4,7 +4,11 @@ A simple and easy to use plugin to draw any simple svg that uses only paths or a
 
 ## Usage
 You will need to include:
- - [jQuery library](http://jquery.com/).
+ - [jQuery library](http://jquery.com/).http://codepen.io/ZetCoby/pen/WQXEXR
+
+ ## DEMO
+Demo on Codepen
+ - [DEMO](http://codepen.io/ZetCoby/pen/WQXEXR).
  
 ###Initialization
 All you need to do is call the plugin inside a `$(document).ready` function:
