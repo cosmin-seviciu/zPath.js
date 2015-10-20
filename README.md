@@ -26,7 +26,7 @@ $(document).ready(function() {
 		draw:'delayed',
 		delay:20,
 		shuffle:true,
-		speed:1000
+		drawTime:1000
 	});
 });
 ```
@@ -40,7 +40,7 @@ $(document).ready(function() {
   - `1by1`,`2by2` . . . `10by10` : let's say you will use `4by4` this will draw 4 paths at the same time
   - `2by2Delayed`,`3by3Delayed` ... : this will draw the specific number of paths at the same time, but again it won't wait fot the other paths to finish, instead it will start after the `delay` has passed
 		
-- `speed`: (default `1000`) the time that it will take for each path to draw
+- `drawTime`: (default `1000`) the time that it will take for each path to draw
 
 - `delay`: (default `20`) the delay between paths
 
