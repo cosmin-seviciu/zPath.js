@@ -25,7 +25,7 @@
   var elements = [];
   var defaults = {
     action: 'start',
-    speed: 3000,
+    drawTime: 3000,
     draw: 'all',
     delay: 20,
     id: 1,
@@ -56,7 +56,7 @@
   };
 
   var drawSVG = function(el, opts) {
-    var speed = opts.speed;
+    var drawTime = opts.drawTime;
     var mode = opts.draw;
     var id = opts.id;
     var delay = opts.delay;
@@ -69,20 +69,20 @@
         if ($(this).is(g)) {
           drawSVG($(this), opts);
         } else if ($(this).is(path)) {
-          draw.path($(this), speed);
+          draw.path($(this), drawTime);
         } else if ($(this).is(rect)) {
-          draw.rect($(this), speed);
+          draw.rect($(this), drawTime);
         } else if ($(this).is(circle)) {
-          draw.circle($(this), speed);
+          draw.circle($(this), drawTime);
         } else if ($(this).is(line)) {
-          draw.line($(this), speed);
+          draw.line($(this), drawTime);
         } else if ($(this).is(polygon)) {
-          draw.polygon($(this), speed);
+          draw.polygon($(this), drawTime);
         }
       });
     } else if (mode == "delayed" || mode == '1by1') {
       if (mode == '1by1') {
-        delayIncrement = speed;
+        delayIncrement = drawTime;
       }
       for (i = 0; i <= elements.length - 1; i++) {
         if (tools.idCompare(elements[i], id)) {
@@ -90,15 +90,15 @@
             (function(element) {
               return function() {
                 if ($('.' + element).is(path)) {
-                  draw.path($('.' + element), speed);
+                  draw.path($('.' + element), drawTime);
                 } else if ($('.' + element).is(rect)) {
-                  draw.rect($('.' + element), speed);
+                  draw.rect($('.' + element), drawTime);
                 } else if ($('.' + element).is(circle)) {
-                  draw.circle($('.' + element), speed);
+                  draw.circle($('.' + element), drawTime);
                 } else if ($('.' + element).is(line)) {
-                  draw.line($('.' + element), speed);
+                  draw.line($('.' + element), drawTime);
                 } else if ($('.' + element).is(polygon)) {
-                  draw.polygon($('.' + element), speed);
+                  draw.polygon($('.' + element), drawTime);
                 }
               }
             })(elements[i]), delay);
@@ -115,34 +115,34 @@
 	            (function(element1, element2) {
 	              return function() {
 	                if ($('.' + element1).is(path)) {
-	                  draw.path($('.' + element1), speed);
+	                  draw.path($('.' + element1), drawTime);
 	                } else if ($('.' + element1).is(rect)) {
-	                  draw.rect($('.' + element1), speed);
+	                  draw.rect($('.' + element1), drawTime);
 	                } else if ($('.' + element1).is(circle)) {
-	                  draw.circle($('.' + element1), speed);
+	                  draw.circle($('.' + element1), drawTime);
 	                } else if ($('.' + element1).is(line)) {
-	                  draw.line($('.' + element1), speed);
+	                  draw.line($('.' + element1), drawTime);
 	                } else if ($('.' + element1).is(polygon)) {
-	                  draw.polygon($('.' + element1), speed);
+	                  draw.polygon($('.' + element1), drawTime);
 	                }
 
 	                if ($('.' + element2).is(path)) {
-	                  draw.path($('.' + element2), speed);
+	                  draw.path($('.' + element2), drawTime);
 	                } else if ($('.' + element2).is(rect)) {
-	                  draw.rect($('.' + element2), speed);
+	                  draw.rect($('.' + element2), drawTime);
 	                } else if ($('.' + element2).is(circle)) {
-	                  draw.circle($('.' + element2), speed);
+	                  draw.circle($('.' + element2), drawTime);
 	                } else if ($('.' + element2).is(line)) {
-	                  draw.line($('.' + element2), speed);
+	                  draw.line($('.' + element2), drawTime);
 	                } else if ($('.' + element2).is(polygon)) {
-	                  draw.polygon($('.' + element2), speed);
+	                  draw.polygon($('.' + element2), drawTime);
 	                }
 	              }
 	            })(elements[i], elements[j]), delay);
 	        
 
 	        if (mode != 'terminusDelayed') {
-	          delay += speed;
+	          delay += drawTime;
 	        } else {
 	          delay += delayIncrement;
 	        }
@@ -169,15 +169,15 @@
                 return function() {
                   for (var j = 0; j < n1; j++) {
                     if ($('.' + element[j]).is(path)) {
-                      draw.path($('.' + element[j]), speed);
+                      draw.path($('.' + element[j]), drawTime);
                     } else if ($('.' + element[j]).is(rect)) {
-                      draw.rect($('.' + element[j]), speed);
+                      draw.rect($('.' + element[j]), drawTime);
                     } else if ($('.' + element[j]).is(circle)) {
-                      draw.circle($('.' + element[j]), speed);
+                      draw.circle($('.' + element[j]), drawTime);
                     } else if ($('.' + element[j]).is(line)) {
-                      draw.line($('.' + element[j]), speed);
+                      draw.line($('.' + element[j]), drawTime);
                     } else if ($('.' + element[j]).is(polygon)) {
-                      draw.polygon($('.' + element[j]), speed);
+                      draw.polygon($('.' + element[j]), drawTime);
                     }
                   }
 
@@ -188,7 +188,7 @@
             if (n2.indexOf("Delayed") >= 0) {
               delay += delayIncrement;
             } else {
-              delay += speed;
+              delay += drawTime;
             }
           }
 
@@ -239,29 +239,29 @@
   }
 
   var draw = {
-    path: function(el, speed) {
-      tools.dashDraw(el, speed);
-      //tools.drawFill(el, speed);
+    path: function(el, drawTime) {
+      tools.dashDraw(el, drawTime);
+      //tools.drawFill(el, drawTime);
 
     },
-    rect: function(el, speed) {
-      tools.dashDraw(el, speed);
-      //tools.drawFill(el, speed);
+    rect: function(el, drawTime) {
+      tools.dashDraw(el, drawTime);
+      //tools.drawFill(el, drawTime);
 
     },
-    circle: function(el, speed) {
-      tools.dashDraw(el, speed);
-      //tools.drawFill(el, speed);
+    circle: function(el, drawTime) {
+      tools.dashDraw(el, drawTime);
+      //tools.drawFill(el, drawTime);
 
     },
-    line: function(el, speed) {
-      tools.dashDraw(el, speed);
-      //tools.drawFill(el, speed);
+    line: function(el, drawTime) {
+      tools.dashDraw(el, drawTime);
+      //tools.drawFill(el, drawTime);
 
     },
-    polygon: function(el, speed) {
-      tools.dashDraw(el, speed);
-      //tools.drawFill(el, speed);
+    polygon: function(el, drawTime) {
+      tools.dashDraw(el, drawTime);
+      //tools.drawFill(el, drawTime);
 
     }
   };
@@ -411,11 +411,11 @@
       });
     },
 
-    drawFill: function(el, speed) {
+    drawFill: function(el, drawTime) {
       el.animate({
         "fill-opacity": 1
       }, {
-        duration: speed
+        duration: drawTime
       });
     },
 
@@ -445,13 +445,13 @@
      *
      * @param el is the path element
      */
-    dashDraw: function(el, speed) {
+    dashDraw: function(el, drawTime) {
       el.animate({
         // "stroke-dasharray":0,
         "stroke-dashoffset": 0
       }, {
         queue: false,
-        duration: speed
+        duration: drawTime
       });
     },
 
